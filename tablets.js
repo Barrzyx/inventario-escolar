@@ -18,51 +18,68 @@
   let activeInputMode = 'single';
   let pieChart = null;
 
-  // Elementos do DOM
-  const form = document.getElementById('inventory-form');
-  const inputCategoria = document.getElementById('input-categoria');
-  const inputNumeracao = document.getElementById('input-numeracao');
-  const inputNumeracoesLote = document.getElementById('input-numeracoes-lote');
-  const inputObservacao = document.getElementById('input-observacao');
-  
-  const tabSingle = document.getElementById('tab-single');
-  const tabBatch = document.getElementById('tab-batch');
-  const modeSingleFields = document.getElementById('mode-single-fields');
-  const modeBatchFields = document.getElementById('mode-batch-fields');
+  // Elementos do DOM (dinâmicos)
+  let form, inputCategoria, inputNumeracao, inputNumeracoesLote, inputObservacao;
+  let tabSingle, tabBatch, modeSingleFields, modeBatchFields;
+  let tableBody, emptyState, totalCountEl;
+  let searchInput, filterCategorySelect;
+  let countBomEstado, countQuebrado;
+  let btnExportExcel, btnExportCsv, btnBackupJson, btnRestoreJson, fileInputJson, btnClearAll;
+  let editModal, editForm, editItemId, editCategoria, editNumeracao, editObservacao, btnCloseModal, btnCancelEdit;
 
-  const tableBody = document.getElementById('inventory-tbody');
-  const emptyState = document.getElementById('empty-state');
-  const totalCountEl = document.getElementById('total-count');
+  function bindDOMElements() {
+    form = document.getElementById('tablets-form');
+    inputCategoria = document.getElementById('tablets-input-categoria');
+    inputNumeracao = document.getElementById('tablets-input-numeracao');
+    inputNumeracoesLote = document.getElementById('tablets-input-numeracoes-lote');
+    inputObservacao = document.getElementById('tablets-input-observacao');
+    
+    tabSingle = document.getElementById('tablets-tab-single');
+    tabBatch = document.getElementById('tablets-tab-batch');
+    modeSingleFields = document.getElementById('tablets-mode-single-fields');
+    modeBatchFields = document.getElementById('tablets-mode-batch-fields');
 
-  const searchInput = document.getElementById('search-input');
-  const filterCategorySelect = document.getElementById('filter-category');
+    tableBody = document.getElementById('tablets-inventory-tbody');
+    emptyState = document.getElementById('tablets-empty-state');
+    totalCountEl = document.getElementById('tablets-total-count');
 
-  // Stats Counters
-  const countBomEstado = document.getElementById('count-bom-estado');
-  const countQuebrado = document.getElementById('count-quebrado');
+    searchInput = document.getElementById('tablets-search-input');
+    filterCategorySelect = document.getElementById('tablets-filter-category');
 
-  // Action Buttons
-  const btnExportExcel = document.getElementById('btn-export-excel');
-  const btnExportCsv = document.getElementById('btn-export-csv');
-  const btnBackupJson = document.getElementById('btn-backup-json');
-  const btnRestoreJson = document.getElementById('btn-restore-json');
-  const fileInputJson = document.getElementById('file-input-json');
-  const btnClearAll = document.getElementById('btn-clear-all');
+    // Stats Counters
+    countBomEstado = document.getElementById('tablets-count-bom-estado');
+    countQuebrado = document.getElementById('tablets-count-quebrado');
 
-  // Modal de Edição
-  const editModal = document.getElementById('edit-modal');
-  const editForm = document.getElementById('edit-form');
-  const editItemId = document.getElementById('edit-item-id');
-  const editCategoria = document.getElementById('edit-categoria');
-  const editNumeracao = document.getElementById('edit-numeracao');
-  const editObservacao = document.getElementById('edit-observacao');
-  const btnCloseModal = document.getElementById('modal-close');
-  const btnCancelEdit = document.getElementById('btn-cancel-edit');
+    // Action Buttons
+    btnExportExcel = document.getElementById('tablets-btn-export-excel');
+    btnExportCsv = document.getElementById('tablets-btn-export-csv');
+    btnBackupJson = document.getElementById('tablets-btn-backup-json');
+    btnRestoreJson = document.getElementById('tablets-btn-restore-json');
+    fileInputJson = document.getElementById('tablets-file-input-json');
+    btnClearAll = document.getElementById('tablets-btn-clear-all');
+
+    // Modal de Edição
+    editModal = document.getElementById('tablets-edit-modal');
+    editForm = document.getElementById('tablets-edit-form');
+    editItemId = document.getElementById('tablets-edit-item-id');
+    editCategoria = document.getElementById('tablets-edit-categoria');
+    editNumeracao = document.getElementById('tablets-edit-numeracao');
+    editObservacao = document.getElementById('tablets-edit-observacao');
+    btnCloseModal = document.getElementById('tablets-modal-close');
+    btnCancelEdit = document.getElementById('tablets-btn-cancel-edit');
+  }
+
+  let listenersAttached = false;
 
   // --- Inicialização ---
   function init() {
+    bindDOMElements();
+    if (!form || !tableBody) return;
     loadFromLocalStorage();
-    setupEventListeners();
+    if (!listenersAttached) {
+      setupEventListeners();
+      listenersAttached = true;
+    }
     render();
   }
 
@@ -106,9 +123,10 @@
       renderTable();
     });
 
-    document.querySelectorAll('.stat-card').forEach(card => {
+    document.querySelectorAll('#panel-tablets .stat-card').forEach(card => {
       card.addEventListener('click', () => {
-        const cat = card.getAttribute('data-cat');
+        const cat = card.getAttribute('data-tab-cat');
+        if (!cat) return;
         if (currentFilter === cat) {
           currentFilter = 'TODAS';
           filterCategorySelect.value = 'TODAS';
@@ -292,6 +310,7 @@
     if (pieChart) {
       pieChart.data.datasets[0].data = dataValues;
       pieChart.update();
+      pieChart.resize();
     } else {
       const customCanvasBackgroundColor = {
         id: 'customCanvasBackgroundColor',
@@ -407,8 +426,8 @@
   }
 
   function updateActiveCardStyle() {
-    document.querySelectorAll('.stat-card').forEach(card => {
-      const cat = card.getAttribute('data-cat');
+    document.querySelectorAll('#panel-tablets .stat-card').forEach(card => {
+      const cat = card.getAttribute('data-tab-cat');
       if (currentFilter === cat) {
         card.classList.add('active-filter');
       } else {

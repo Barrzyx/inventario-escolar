@@ -167,6 +167,26 @@ body {
   animation: slideInLeft 0.22s cubic-bezier(0, 0, 0.2, 1) forwards !important;
 }
 
+/* Painéis SPA de Abas */
+.tab-panel {
+  display: none;
+  width: 100%;
+}
+
+.tab-panel.active-panel {
+  display: block;
+}
+
+.tab-panel.slide-in-right {
+  display: block;
+  animation: slideInRight 0.22s cubic-bezier(0, 0, 0.2, 1) forwards !important;
+}
+
+.tab-panel.slide-in-left {
+  display: block;
+  animation: slideInLeft 0.22s cubic-bezier(0, 0, 0.2, 1) forwards !important;
+}
+
 /* Área de Conteúdo Transicionável */
 .page-view-container {
   width: 100%;
@@ -210,36 +230,44 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.55rem 1rem;
+  gap: 0.55rem;
+  padding: 0.6rem 1.15rem;
   color: var(--text-muted);
-  text-decoration: none;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: var(--font-base);
   font-size: 0.88rem;
   font-weight: 500;
   border-radius: var(--radius-sm);
-  transition: background 0.15s, color 0.15s;
+  transition: all 0.15s ease;
   flex: 1 1 auto;
   text-align: center;
-  min-width: 130px;
+  min-width: 140px;
+  user-select: none;
+  outline: none;
 }
 
 .nav-tab-item:hover {
   color: var(--text-main);
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.06);
 }
 
 .nav-tab-item.active {
   color: #ffffff;
   background: var(--primary);
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
 }
 
 .nav-tab-item.active-tablets {
   background: #0284c7;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
 }
 
 .nav-tab-item.active-professores {
   background: #7c3aed;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
 }
 
 /* Cabeçalho e Ações */
