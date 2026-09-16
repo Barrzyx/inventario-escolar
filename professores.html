@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventário de Laptops de Professor</title>
+  
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- ExcelJS para Geração Avançada com Imagens -->
+  <script defer src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+  <!-- Chart.js para Gráficos -->
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Script Principal -->
+  <script defer src="professores.js"></script>
+  <!-- Transições Fluidas de Página -->
+  <script defer src="page-transitions.js"></script>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <!-- Navegação Global entre Páginas -->
+      <nav class="global-nav" aria-label="Navegação do Inventário">
+        <a href="index.html" class="nav-tab-item">
+          <i class="fa-solid fa-laptop"></i> Laptops dos Alunos
+        </a>
+        <a href="tablets.html" class="nav-tab-item">
+          <i class="fa-solid fa-tablet-screen-button"></i> Tablets
+        </a>
+        <a href="professores.html" class="nav-tab-item active active-professores">
+          <i class="fa-solid fa-chalkboard-user"></i> Laptops de Professor
+        </a>
+      </nav>
+
+      <div class="header-content">
+        <div class="brand">
+          <div class="brand-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);">
+            <i class="fa-solid fa-chalkboard-user"></i>
+          </div>
+          <div>
+            <h1>Inventário de Laptops de Professor</h1>
+            <p class="subtitle">Gestão e controle rápido dos modelos ThinkPad e Ultra dos professores</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="btn-export-excel" class="btn btn-success">
+            <i class="fa-solid fa-file-excel"></i> Exportar Excel (.xlsx)
+          </button>
+          <button id="btn-export-csv" class="btn btn-secondary">
+            <i class="fa-solid fa-file-csv"></i> Exportar CSV
+          </button>
+          <button id="btn-backup-json" class="btn btn-secondary" title="Baixar cópia de segurança em arquivo JSON">
+            <i class="fa-solid fa-download"></i> Backup JSON
+          </button>
+          <button id="btn-restore-json" class="btn btn-secondary" title="Carregar arquivo de backup JSON">
+            <i class="fa-solid fa-upload"></i> Restaurar Backup
+          </button>
+          <input type="file" id="file-input-json" accept=".json" class="hidden">
+          <button id="btn-clear-all" class="btn btn-danger-outline" title="Limpar todo o inventário de professores">
+            <i class="fa-solid fa-trash-can"></i> Limpar Tudo
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Cards de Estatísticas por Categoria (3 Categorias) -->
+    <section class="stats-section">
+      <div class="stats-grid">
+        <div class="stat-card category-perfeito" data-cat="Bom estado">
+          <div class="stat-icon">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-count" id="count-perfeito">0</span>
+            <span class="stat-label">Bom estado</span>
+          </div>
+        </div>
+
+        <div class="stat-card category-software" data-cat="Problemas de software / lentidão">
+          <div class="stat-icon">
+            <i class="fa-solid fa-laptop-code"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-count" id="count-software">0</span>
+            <span class="stat-label">Software / Lentidão</span>
+          </div>
+        </div>
+
+        <div class="stat-card category-quebrado" data-cat="Laptop quebrado / Não liga">
+          <div class="stat-icon">
+            <i class="fa-solid fa-heart-crack"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-count" id="count-quebrado">0</span>
+            <span class="stat-label">Quebrados / Não liga</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Layout -->
+    <main class="main-layout">
+      <!-- Formulário de Cadastro -->
+      <section class="card form-card">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-plus-circle"></i> Cadastrar Laptop de Professor</h2>
+          <div class="tab-buttons">
+            <button type="button" class="tab-btn active" id="tab-single"><i class="fa-solid fa-tag"></i> Individual</button>
+            <button type="button" class="tab-btn" id="tab-batch"><i class="fa-solid fa-layer-group"></i> Em Lote</button>
+          </div>
+        </div>
+
+        <form id="inventory-form" class="form-body">
+          <!-- Seleção da Categoria -->
+          <div class="form-group">
+            <label for="input-categoria">
+              Categoria / Estado <span class="required">*</span>
+            </label>
+            <select id="input-categoria" required>
+              <option value="" disabled selected>Selecione o estado...</option>
+              <option value="Bom estado">✅ Bom estado</option>
+              <option value="Problemas de software / lentidão">💻 Problemas de software / lentidão</option>
+              <option value="Laptop quebrado / Não liga">❌ Laptop quebrado / Não liga</option>
+            </select>
+          </div>
+
+          <!-- Marca do Equipamento (Apenas ThinkPad e Ultra) -->
+          <div class="form-group">
+            <label for="input-marca">
+              Marca do Laptop <span class="required">*</span>
+            </label>
+            <select id="input-marca" required>
+              <option value="" disabled selected>Selecione a marca...</option>
+              <option value="ThinkPad">ThinkPad</option>
+              <option value="Ultra">Ultra</option>
+            </select>
+          </div>
+
+          <!-- Entrada Individual -->
+          <div id="mode-single-fields" class="mode-fields">
+            <div class="form-group">
+              <label for="input-numeracao">
+                Numeração / Patrimônio <span class="required">*</span>
+              </label>
+              <input type="text" id="input-numeracao" placeholder="Ex: TP-01, UL-102, 05..." autocomplete="off">
+            </div>
+          </div>
+
+          <!-- Entrada Em Lote -->
+          <div id="mode-batch-fields" class="mode-fields hidden">
+            <div class="form-group">
+              <label for="input-numeracoes-lote">
+                Numerações (Separadas por vírgula, espaço ou linhas) <span class="required">*</span>
+              </label>
+              <textarea id="input-numeracoes-lote" rows="3" placeholder="Ex: TP-01, TP-02 ou 01-10"></textarea>
+              <span class="help-text"><i class="fa-solid fa-circle-info"></i> Dica: Você pode digitar <code>01, 02, 03</code> ou intervalos como <code>01-10</code>.</span>
+            </div>
+          </div>
+
+          <!-- Observação Opcional -->
+          <div class="form-group">
+            <label for="input-observacao">
+              Observações (Opcional)
+            </label>
+            <input type="text" id="input-observacao" placeholder="Ex: Sem carregador original, bateria viciada, formatar..." autocomplete="off">
+          </div>
+
+          <button type="submit" id="btn-submit" class="btn btn-primary btn-block" style="background: #7c3aed;">
+            <i class="fa-solid fa-plus"></i> Adicionar Laptop ao Inventário
+          </button>
+        </form>
+      </section>
+
+      <!-- Lista de Equipamentos Cadastrados -->
+      <section class="card list-card">
+        <div class="card-header list-header">
+          <div>
+            <h2><i class="fa-solid fa-list-check"></i> Laptops de Professor (<span id="total-count">0</span>)</h2>
+          </div>
+          <div class="filter-controls">
+            <!-- Pesquisa por texto -->
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="search-input" placeholder="Buscar marca, número...">
+            </div>
+
+            <!-- Filtro de Categoria -->
+            <div class="filter-box">
+              <select id="filter-category">
+                <option value="TODAS">Todas as Categorias</option>
+                <option value="Bom estado">Bom estado</option>
+                <option value="Problemas de software / lentidão">Software / Lentidão</option>
+                <option value="Laptop quebrado / Não liga">Quebrado / Não liga</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabela -->
+        <div class="table-wrapper">
+          <table class="inventory-table" id="inventory-table">
+            <thead>
+              <tr>
+                <th style="width: 50px;">#</th>
+                <th>Marca</th>
+                <th>Numeração</th>
+                <th>Estado</th>
+                <th>Observações</th>
+                <th style="width: 100px; text-align: center;">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-tbody">
+              <!-- Renderizado via JavaScript -->
+            </tbody>
+          </table>
+
+          <div id="empty-state" class="empty-state">
+            <div class="empty-icon">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <h3>Nenhum laptop de professor cadastrado ainda</h3>
+            <p>Preencha o formulário ao lado para cadastrar os equipamentos dos professores.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Seção do Gráfico de Pizza -->
+    <section class="card chart-section">
+      <div class="card-header">
+        <h2><i class="fa-solid fa-chart-pie"></i> Distribuição dos Laptops de Professor</h2>
+      </div>
+      <div class="chart-container">
+        <div class="chart-wrapper">
+          <canvas id="professores-pie-chart"></canvas>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal de Edição -->
+  <div id="edit-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-pen-to-square"></i> Editar Laptop de Professor</h3>
+        <button id="modal-close" class="btn-icon"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="edit-form" class="modal-body">
+        <input type="hidden" id="edit-item-id">
+        <div class="form-group">
+          <label for="edit-categoria">Categoria / Estado</label>
+          <select id="edit-categoria" required>
+            <option value="Bom estado">✅ Bom estado</option>
+            <option value="Problemas de software / lentidão">💻 Problemas de software / lentidão</option>
+            <option value="Laptop quebrado / Não liga">❌ Laptop quebrado / Não liga</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="edit-marca">Marca</label>
+          <select id="edit-marca" required>
+            <option value="ThinkPad">ThinkPad</option>
+            <option value="Ultra">Ultra</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="edit-numeracao">Numeração / Patrimônio</label>
+          <input type="text" id="edit-numeracao" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-observacao">Observações</label>
+          <input type="text" id="edit-observacao">
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="btn-cancel-edit" class="btn btn-secondary">Cancelar</button>
+          <button type="submit" class="btn btn-primary" style="background: #7c3aed;"><i class="fa-solid fa-floppy-disk"></i> Salvar Alterações</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-container" class="toast-container"></div>
+</body>
+</html>

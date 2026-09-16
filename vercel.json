@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "name": "inventario-equipamentos",
+  "cleanUrls": true,
+  "routes": [
+    {
+      "src": "/tablets",
+      "dest": "/tablets.html"
+    },
+    {
+      "src": "/professores",
+      "dest": "/professores.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}
