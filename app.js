@@ -470,22 +470,19 @@
           datasets: [{
             data: dataValues,
             backgroundColor: bgColors,
-            borderColor: '#1e293b',
+            borderColor: '#ffffff',
             borderWidth: 2
           }]
         },
-        plugins: [customCanvasBackgroundColor, pieSlicePercentagesPlugin],
+        plugins: [pieSlicePercentagesPlugin],
         options: {
           responsive: true,
           maintainAspectRatio: false,
           plugins: {
-            customCanvasBackgroundColor: {
-              color: '#1e293b'
-            },
             legend: {
               position: 'bottom',
               labels: {
-                color: '#f8fafc',
+                color: '#475569',
                 font: {
                   family: 'Inter',
                   size: 12
@@ -506,6 +503,18 @@
             }
           }
         }
+      });
+
+      window.addEventListener('themechange', (e) => {
+        if (!pieChart) return;
+        const { textColor, borderColor } = e.detail;
+        if (pieChart.options?.plugins?.legend?.labels) {
+          pieChart.options.plugins.legend.labels.color = textColor;
+        }
+        if (pieChart.data?.datasets?.[0]) {
+          pieChart.data.datasets[0].borderColor = borderColor;
+        }
+        pieChart.update();
       });
     }
   }

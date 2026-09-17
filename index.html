@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inventário de Equipamentos Escolares</title>
   
-  <!-- Google Fonts: Inter & Outfit -->
+  <!-- Google Fonts: Geist & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,7 +20,8 @@
   <!-- Chart.js para Gráficos -->
   <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
-  <!-- Scripts dos 3 Módulos SPA -->
+  <!-- Scripts dos Módulos & Tema -->
+  <script src="theme.js"></script>
   <script defer src="app.js"></script>
   <script defer src="tablets.js"></script>
   <script defer src="professores.js"></script>
@@ -30,19 +31,25 @@
 </head>
 <body>
   <div class="app-container">
-    <!-- Header Global com Abas SPA -->
+    <!-- Header Global com Abas SPA e Botão de Tema -->
     <header class="app-header">
-      <nav class="global-nav" aria-label="Navegação do Inventário">
-        <button type="button" class="nav-tab-item active" data-target="panel-laptops">
-          <i class="fa-solid fa-laptop"></i> Laptops dos Alunos
+      <div class="header-nav-wrapper">
+        <nav class="global-nav" aria-label="Navegação do Inventário">
+          <button type="button" class="nav-tab-item active" data-target="panel-laptops">
+            <i class="fa-solid fa-laptop"></i> Laptops dos Alunos
+          </button>
+          <button type="button" class="nav-tab-item" data-target="panel-tablets">
+            <i class="fa-solid fa-tablet-screen-button"></i> Tablets
+          </button>
+          <button type="button" class="nav-tab-item" data-target="panel-professores">
+            <i class="fa-solid fa-chalkboard-user"></i> Laptops de Professor
+          </button>
+        </nav>
+        <button type="button" id="theme-toggle" class="theme-toggle-btn" title="Alternar Modo Escuro / Claro" aria-label="Alternar tema">
+          <i class="fa-solid fa-moon"></i>
+          <span class="theme-toggle-label">Escuro</span>
         </button>
-        <button type="button" class="nav-tab-item" data-target="panel-tablets">
-          <i class="fa-solid fa-tablet-screen-button"></i> Tablets
-        </button>
-        <button type="button" class="nav-tab-item" data-target="panel-professores">
-          <i class="fa-solid fa-chalkboard-user"></i> Laptops de Professor
-        </button>
-      </nav>
+      </div>
     </header>
 
     <!-- ====================================================================
@@ -251,7 +258,7 @@
     <div id="panel-tablets" class="tab-panel">
       <div class="header-content" style="margin-bottom: 1.25rem;">
         <div class="brand">
-          <div class="brand-icon" style="background: linear-gradient(135deg, #0ea5e9, #0284c7); box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);">
+          <div class="brand-icon">
             <i class="fa-solid fa-tablet-screen-button"></i>
           </div>
           <div>
@@ -340,7 +347,7 @@
               <input type="text" id="tablets-input-observacao" placeholder="Ex: Tela trincada, Sem carregador, Capa protetora..." autocomplete="off">
             </div>
 
-            <button type="submit" id="tablets-btn-submit" class="btn btn-primary btn-block" style="background: #0284c7;">
+            <button type="submit" id="tablets-btn-submit" class="btn btn-primary btn-block">
               <i class="fa-solid fa-plus"></i> Adicionar Tablet ao Inventário
             </button>
           </form>
@@ -407,7 +414,7 @@
     <div id="panel-professores" class="tab-panel">
       <div class="header-content" style="margin-bottom: 1.25rem;">
         <div class="brand">
-          <div class="brand-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);">
+          <div class="brand-icon">
             <i class="fa-solid fa-chalkboard-user"></i>
           </div>
           <div>
@@ -513,7 +520,7 @@
               <input type="text" id="prof-input-observacao" placeholder="Ex: Sem carregador original, bateria viciada..." autocomplete="off">
             </div>
 
-            <button type="submit" id="prof-btn-submit" class="btn btn-primary btn-block" style="background: #7c3aed;">
+            <button type="submit" id="prof-btn-submit" class="btn btn-primary btn-block">
               <i class="fa-solid fa-plus"></i> Adicionar Laptop ao Inventário
             </button>
           </form>
