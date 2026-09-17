@@ -3,25 +3,25 @@
    Design System: shadcn/ui — Clinical Blueprint on Frosted Paper
    ========================================================================== */
 
-/* --- Variáveis & Paleta de Tokens (Monocromático Estrito) --- */
+/* --- Variáveis & Paleta de Tokens (Monocromático Estrito + Frosted Paper) --- */
 :root, [data-theme="light"] {
   /* Tokens de Cor */
   --color-canvas: #f5f5f5;
-  --color-paper: #ffffff;
-  --color-surface-alt: #fafafa;
+  --color-paper: rgba(255, 255, 255, 0.88);
+  --color-surface-alt: rgba(250, 250, 250, 0.8);
   --color-ink: #0a0a0a;
   --color-ink-soft: #171717;
   --color-mid-gray: #737373;
-  --color-hairline: #e5e5e5;
+  --color-hairline: rgba(229, 229, 229, 0.85);
   --color-ember: #e7000b;
 
   /* Aliases Semânticos de Superfície */
   --bg-app: var(--color-canvas);
   --bg-surface: var(--color-paper);
-  --bg-surface-elevated: var(--color-paper);
+  --bg-surface-elevated: rgba(255, 255, 255, 0.95);
   --bg-surface-hover: var(--color-surface-alt);
-  --bg-input: var(--color-canvas);
-  --bg-muted: var(--color-canvas);
+  --bg-input: rgba(245, 245, 245, 0.85);
+  --bg-muted: rgba(245, 245, 245, 0.75);
 
   /* Bordas */
   --border-subtle: var(--color-hairline);
@@ -33,31 +33,31 @@
   --text-muted: var(--color-mid-gray);
   --text-subtle: #a3a3a3;
 
-  /* Status Tokens (Ajustados com precisão ao sistema de tags / pílulas) */
+  /* Status Tokens */
   --color-perfeito: var(--color-ink);
-  --bg-perfeito: #f5f5f5;
+  --bg-perfeito: rgba(245, 245, 245, 0.8);
   --text-perfeito: #171717;
   --border-perfeito: var(--color-hairline);
 
   --color-software: #171717;
-  --bg-software: #f5f5f5;
+  --bg-software: rgba(245, 245, 245, 0.8);
   --text-software: #171717;
   --border-software: var(--color-hairline);
 
   --color-teclas-normal: #171717;
-  --bg-teclas-normal: #f5f5f5;
+  --bg-teclas-normal: rgba(245, 245, 245, 0.8);
   --text-teclas-normal: #171717;
   --border-teclas-normal: var(--color-hairline);
 
   --color-teclas-mal: #171717;
-  --bg-teclas-mal: #f5f5f5;
+  --bg-teclas-mal: rgba(245, 245, 245, 0.8);
   --text-teclas-mal: #171717;
   --border-teclas-mal: var(--color-hairline);
 
   --color-quebrado: var(--color-ember);
-  --bg-quebrado: #fff1f2;
+  --bg-quebrado: rgba(255, 241, 242, 0.85);
   --text-quebrado: var(--color-ember);
-  --border-quebrado: #fecdd3;
+  --border-quebrado: rgba(254, 205, 211, 0.85);
 
   /* Tipografia Geist / Inter */
   --font-geist: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -76,29 +76,29 @@
 
   /* Sombras Whisper-Quiet */
   --shadow-subtle: 0 0 0 1px rgba(23, 23, 23, 0.05), 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
-  --shadow-modal: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-modal: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
 }
 
-/* --- Tema Escuro (Monocromático Invertido) --- */
+/* --- Tema Escuro (Monocromático Invertido + Frosted Paper) --- */
 [data-theme="dark"] {
   --color-canvas: #0a0a0a;
-  --color-paper: #141414;
-  --color-surface-alt: #1c1c1c;
+  --color-paper: rgba(18, 18, 18, 0.82);
+  --color-surface-alt: rgba(28, 28, 28, 0.75);
   --color-ink: #fafafa;
   --color-ink-soft: #e5e5e5;
   --color-mid-gray: #8c8c8c;
-  --color-hairline: #262626;
+  --color-hairline: rgba(255, 255, 255, 0.08);
   --color-ember: #ef4444;
 
   --bg-app: var(--color-canvas);
   --bg-surface: var(--color-paper);
-  --bg-surface-elevated: #1a1a1a;
+  --bg-surface-elevated: rgba(26, 26, 26, 0.95);
   --bg-surface-hover: var(--color-surface-alt);
-  --bg-input: #171717;
-  --bg-muted: #1c1c1c;
+  --bg-input: rgba(23, 23, 23, 0.85);
+  --bg-muted: rgba(28, 28, 28, 0.75);
 
   --border-subtle: var(--color-hairline);
-  --border-medium: #383838;
+  --border-medium: rgba(255, 255, 255, 0.16);
   --border-focus: var(--color-ink);
 
   --text-main: var(--color-ink);
@@ -106,24 +106,24 @@
   --text-subtle: #525252;
 
   --color-perfeito: #fafafa;
-  --bg-perfeito: #1e1e1e;
+  --bg-perfeito: rgba(30, 30, 30, 0.8);
   --text-perfeito: #fafafa;
-  --border-perfeito: #2a2a2a;
+  --border-perfeito: rgba(255, 255, 255, 0.08);
 
   --color-software: #e5e5e5;
-  --bg-software: #1e1e1e;
+  --bg-software: rgba(30, 30, 30, 0.8);
   --text-software: #e5e5e5;
-  --border-software: #2a2a2a;
+  --border-software: rgba(255, 255, 255, 0.08);
 
   --color-teclas-normal: #e5e5e5;
-  --bg-teclas-normal: #1e1e1e;
+  --bg-teclas-normal: rgba(30, 30, 30, 0.8);
   --text-teclas-normal: #e5e5e5;
-  --border-teclas-normal: #2a2a2a;
+  --border-teclas-normal: rgba(255, 255, 255, 0.08);
 
   --color-teclas-mal: #e5e5e5;
-  --bg-teclas-mal: #1e1e1e;
+  --bg-teclas-mal: rgba(30, 30, 30, 0.8);
   --text-teclas-mal: #e5e5e5;
-  --border-teclas-mal: #2a2a2a;
+  --border-teclas-mal: rgba(255, 255, 255, 0.08);
 
   --color-quebrado: #ef4444;
   --bg-quebrado: rgba(239, 68, 68, 0.15);
@@ -132,6 +132,17 @@
 
   --shadow-subtle: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-modal: 0 20px 40px rgba(0, 0, 0, 0.8);
+}
+
+/* --- ShaderGradient Canvas de Fundo Fixo --- */
+#shader-gradient-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -10;
+  pointer-events: none;
 }
 
 /* --- Resets & Base --- */
@@ -143,13 +154,13 @@
 
 html {
   font-size: 14px;
-  background-color: var(--color-canvas);
+  background-color: transparent;
 }
 
 body {
   font-family: var(--font-geist);
   font-feature-settings: "ss01" on, "cv11" on;
-  background-color: var(--color-canvas);
+  background-color: transparent;
   color: var(--color-ink);
   line-height: 1.43;
   min-height: 100vh;
@@ -157,7 +168,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 /* Scrollbar Minimalista */
@@ -238,6 +249,8 @@ body {
 .app-header {
   margin-bottom: 2.5rem;
   background-color: var(--color-paper);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--color-hairline);
   margin-left: -24px;
   margin-right: -24px;
@@ -263,6 +276,8 @@ body {
 }
 
 .nav-tab-item {
+  position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -270,29 +285,70 @@ body {
   padding: 8px 16px;
   height: 36px;
   color: var(--color-mid-gray);
-  background: transparent;
+  background-color: transparent;
   border: 1px solid transparent;
   border-radius: var(--radius-buttons);
   cursor: pointer;
   font-family: var(--font-geist);
   font-size: 13px;
   font-weight: 500;
-  transition: all 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   outline: none;
   white-space: nowrap;
+  overflow: hidden;
 }
 
 .nav-tab-item i {
   font-size: 13px;
   opacity: 0.8;
+  transition: transform 0.2s ease;
 }
 
 .nav-tab-item:hover {
   color: var(--color-ink);
   background-color: var(--color-canvas);
+  border-color: var(--color-hairline);
 }
 
+.nav-tab-item:hover i {
+  transform: scale(1.1);
+}
+
+/* Border Beam no botão de aba ativa e no hover */
+.nav-tab-item::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--beam-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    transparent 60deg,
+    rgba(10, 10, 10, 0.7) 110deg,
+    rgba(10, 10, 10, 0.15) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: borderBeamRotate 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 1;
+}
+
+.nav-tab-item:hover::before {
+  opacity: 1;
+  animation-duration: 2s;
+}
+
+/* Aba Ativa (Preenchida com Inversão de Cor no Hover) */
 .nav-tab-item.active,
 .nav-tab-item.active-tablets,
 .nav-tab-item.active-professores {
@@ -300,6 +356,46 @@ body {
   background-color: var(--color-ink);
   font-weight: 500;
   border-color: var(--color-ink);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.nav-tab-item.active::before,
+.nav-tab-item.active-tablets::before,
+.nav-tab-item.active-professores::before {
+  opacity: 1;
+  background: conic-gradient(
+    from var(--beam-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    transparent 60deg,
+    rgba(255, 255, 255, 0.95) 110deg,
+    rgba(255, 255, 255, 0.25) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
+}
+
+/* Inversão de cor no Hover da Aba Ativa */
+.nav-tab-item.active:hover,
+.nav-tab-item.active-tablets:hover,
+.nav-tab-item.active-professores:hover {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+}
+
+.nav-tab-item.active:hover::before,
+.nav-tab-item.active-tablets:hover::before,
+.nav-tab-item.active-professores:hover::before {
+  background: conic-gradient(
+    from var(--beam-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    transparent 60deg,
+    var(--color-ink) 110deg,
+    rgba(10, 10, 10, 0.2) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
 }
 
 [data-theme="dark"] .nav-tab-item.active,
@@ -310,34 +406,41 @@ body {
   border-color: #fafafa;
 }
 
-/* Botão Alternador de Tema */
-.theme-toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  height: 36px;
-  background-color: var(--color-canvas);
-  border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-buttons);
-  color: var(--color-ink);
-  font-family: var(--font-geist);
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  user-select: none;
-  white-space: nowrap;
-  flex-shrink: 0;
+[data-theme="dark"] .nav-tab-item.active::before,
+[data-theme="dark"] .nav-tab-item.active-tablets::before,
+[data-theme="dark"] .nav-tab-item.active-professores::before {
+  background: conic-gradient(
+    from var(--beam-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    transparent 60deg,
+    #0a0a0a 110deg,
+    rgba(10, 10, 10, 0.3) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
 }
 
-.theme-toggle-btn:hover {
-  background-color: var(--color-paper);
-  border-color: var(--border-medium);
+[data-theme="dark"] .nav-tab-item.active:hover,
+[data-theme="dark"] .nav-tab-item.active-tablets:hover,
+[data-theme="dark"] .nav-tab-item.active-professores:hover {
+  background-color: #0a0a0a;
+  color: #fafafa;
+  border-color: #fafafa;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.12);
 }
 
-.theme-toggle-btn:active {
-  transform: scale(0.97);
+[data-theme="dark"] .nav-tab-item.active:hover::before,
+[data-theme="dark"] .nav-tab-item.active-tablets:hover::before,
+[data-theme="dark"] .nav-tab-item.active-professores:hover::before {
+  background: conic-gradient(
+    from var(--beam-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    transparent 60deg,
+    #ffffff 110deg,
+    rgba(255, 255, 255, 0.4) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
 }
 
 .theme-toggle-btn i {
@@ -399,88 +502,264 @@ body {
   align-items: center;
 }
 
-/* --- Botões Universais (Radius 18px Pill Geometry) --- */
-.btn {
+/* --- Border Beam Button Animations & Properties (Cult UI / Magic UI Spec) --- */
+@property --beam-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes borderBeamRotate {
+  0% {
+    --beam-angle: 0deg;
+  }
+  100% {
+    --beam-angle: 360deg;
+  }
+}
+
+/* --- Botões Universais (Radius 18px Pill Geometry + Border Beam em Todos) --- */
+.btn, .theme-toggle-btn {
+  position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 8px 14px;
-  min-height: 36px;
+  gap: 8px;
+  padding: 8px 16px;
+  min-height: 38px;
   font-size: 13px;
   font-weight: 500;
   font-family: var(--font-geist);
   border-radius: var(--radius-buttons);
   border: 1px solid var(--color-hairline);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
   user-select: none;
+  overflow: hidden;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
 }
 
-.btn:active {
-  transform: scale(0.98);
+.btn:active, .theme-toggle-btn:active {
+  transform: scale(0.97);
 }
 
-/* Botão Primário Preenchido (#0a0a0a com texto #fafafa) */
+/* Pseudo-elemento do Feixe de Luz Border Beam para TODOS os Botões */
+.btn::before,
+.theme-toggle-btn::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--beam-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    transparent 60deg,
+    rgba(10, 10, 10, 0.65) 110deg,
+    rgba(10, 10, 10, 0.15) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: borderBeamRotate 4s linear infinite;
+  z-index: 1;
+}
+
+.btn:hover::before,
+.theme-toggle-btn:hover::before {
+  animation-duration: 2s; /* Acelera suavemente ao passar o mouse */
+}
+
+/* Botão Primário Border Beam (Cult UI Style com Inversão de Cor no Hover) */
 .btn-primary {
   background-color: var(--color-ink);
   color: #fafafa;
   border: 1px solid var(--color-ink);
   font-weight: 500;
-  padding: 10px 18px;
-  height: 40px;
+  padding: 10px 20px;
+  height: 42px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.btn-primary::before {
+  background: conic-gradient(
+    from var(--beam-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    transparent 60deg,
+    rgba(255, 255, 255, 0.95) 110deg,
+    rgba(255, 255, 255, 0.25) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
+}
+
+/* Inversão de Cor no Hover (Preto vira Branco com texto Preto no Light Mode) */
 .btn-primary:hover {
-  background-color: var(--color-ink-soft);
-  border-color: var(--color-ink-soft);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.12), 0 0 0 1px var(--color-ink);
 }
 
-[data-theme="dark"] .btn-primary {
-  background-color: #fafafa;
-  color: #0a0a0a;
-  border-color: #fafafa;
-}
-[data-theme="dark"] .btn-primary:hover {
-  background-color: #e5e5e5;
-  border-color: #e5e5e5;
+.btn-primary:hover::before {
+  background: conic-gradient(
+    from var(--beam-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    transparent 60deg,
+    var(--color-ink) 110deg,
+    rgba(10, 10, 10, 0.25) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
+  animation-duration: 2s;
 }
 
-/* Botões Secundários / Ghost (#f5f5f5) */
+/* Botões Secundários / Ghost (#f5f5f5) com Border Beam */
 .btn-secondary {
   background-color: var(--color-canvas);
   color: var(--color-ink);
   border: 1px solid var(--color-hairline);
   font-weight: 500;
 }
+
 .btn-secondary:hover {
   background-color: var(--color-paper);
   border-color: var(--border-medium);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.06);
 }
 
-/* Botão Excel (Outline Clean) */
+/* Botão Excel com Border Beam */
 .btn-success {
   background-color: var(--color-paper);
   color: var(--color-ink);
   border: 1px solid var(--color-hairline);
   font-weight: 500;
 }
+
 .btn-success:hover {
   background-color: var(--color-canvas);
   border-color: var(--border-medium);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.06);
 }
 
-/* Ação Destrutiva (Ember #e7000b reservado exclusivamente para erro/delete) */
+/* Ação Destrutiva (Ember #e7000b com Feixe Vermelho) */
 .btn-danger-outline {
   background-color: transparent;
   color: var(--color-ember);
   border: 1px solid var(--color-hairline);
   font-weight: 500;
 }
+
+.btn-danger-outline::before {
+  background: conic-gradient(
+    from var(--beam-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    transparent 60deg,
+    var(--color-ember) 110deg,
+    rgba(231, 0, 11, 0.3) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
+}
+
 .btn-danger-outline:hover {
   background-color: var(--color-ember);
   color: #ffffff;
   border-color: var(--color-ember);
+  box-shadow: 0 0 18px rgba(231, 0, 11, 0.3);
+}
+
+/* --- Dark Mode para Todos os Feixes de Luz & Inversão --- */
+[data-theme="dark"] .btn::before,
+[data-theme="dark"] .theme-toggle-btn::before {
+  background: conic-gradient(
+    from var(--beam-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    transparent 60deg,
+    rgba(250, 250, 250, 0.8) 110deg,
+    rgba(250, 250, 250, 0.2) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
+}
+
+[data-theme="dark"] .btn-primary {
+  background-color: #fafafa;
+  color: #0a0a0a;
+  border-color: #fafafa;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .btn-primary::before {
+  background: conic-gradient(
+    from var(--beam-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    transparent 60deg,
+    #0a0a0a 110deg,
+    rgba(10, 10, 10, 0.3) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
+}
+
+[data-theme="dark"] .btn-primary:hover {
+  background-color: #0a0a0a;
+  color: #fafafa;
+  border-color: #fafafa;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.2), 0 0 0 1px #fafafa;
+}
+
+[data-theme="dark"] .btn-primary:hover::before {
+  background: conic-gradient(
+    from var(--beam-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    transparent 60deg,
+    #ffffff 110deg,
+    rgba(255, 255, 255, 0.45) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
+}
+
+[data-theme="dark"] .btn-secondary {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+  background-color: var(--color-paper);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .btn-success {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+[data-theme="dark"] .btn-success:hover {
+  background-color: var(--color-surface-alt);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .btn-danger-outline::before {
+  background: conic-gradient(
+    from var(--beam-angle, 0deg) at 50% 50%,
+    transparent 0deg,
+    transparent 60deg,
+    #ef4444 110deg,
+    rgba(239, 68, 68, 0.4) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
 }
 
 .btn-block {
@@ -522,6 +801,8 @@ body {
 
 .stat-card {
   background-color: var(--color-paper);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: var(--radius-cards);
   padding: 20px;
   display: flex;
@@ -587,6 +868,8 @@ body {
 /* Cards Gerais (24px Radius) */
 .card {
   background-color: var(--color-paper);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: var(--radius-cards);
   border: 1px solid var(--color-hairline);
   box-shadow: var(--shadow-subtle);
@@ -1012,6 +1295,8 @@ textarea {
 
 .modal-content {
   background-color: var(--color-paper);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-radius: var(--radius-cards);
   border: 1px solid var(--color-hairline);
   width: 100%;
