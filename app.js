@@ -199,6 +199,17 @@
     }
   }
 
+  // --- Verificação de Equipamentos Repetidos ---
+  function findDuplicate(numeracao, currentId = null) {
+    if (!numeracao) return null;
+    const cleanNum = String(numeracao).trim().toLowerCase();
+    if (!cleanNum) return null;
+    return inventoryItems.find(item => {
+      if (currentId && item.id === currentId) return false;
+      return String(item.numeracao).trim().toLowerCase() === cleanNum;
+    }) || null;
+  }
+
   // --- Adicionar Item ou Lote ---
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -218,6 +229,14 @@
       const numeracao = inputNumeracao.value.trim();
       if (!numeracao) {
         showToast('Digite a numeração do equipamento.', 'error');
+        return;
+      }
+
+      const duplicate = findDuplicate(numeracao);
+      if (duplicate) {
+        showToast(`O equipamento nº "${numeracao}" já está cadastrado (${duplicate.marca} - ${duplicate.categoria})!`, 'error');
+        inputNumeracao.focus();
+        inputNumeracao.select();
         return;
       }
 
@@ -248,8 +267,34 @@
         return;
       }
 
-      let countAdded = 0;
+      const seenInBatch = new Set();
+      const toAdd = [];
+      const duplicates = [];
+
       parsedNumbers.forEach(num => {
+        const clean = String(num).trim();
+        const cleanLower = clean.toLowerCase();
+
+        if (seenInBatch.has(cleanLower)) {
+          if (!duplicates.includes(clean)) duplicates.push(clean);
+          return;
+        }
+        seenInBatch.add(cleanLower);
+
+        const existing = findDuplicate(clean);
+        if (existing) {
+          if (!duplicates.includes(clean)) duplicates.push(clean);
+        } else {
+          toAdd.push(clean);
+        }
+      });
+
+      if (toAdd.length === 0) {
+        showToast(`Todos os equipamentos informados (${duplicates.join(', ')}) já estão cadastrados!`, 'error');
+        return;
+      }
+
+      toAdd.forEach(num => {
         addItem({
           id: generateUniqueId(),
           categoria,
@@ -258,13 +303,18 @@
           observacao,
           createdAt: nowStr
         }, false); // Não renderiza em cada iteração para dar performance
-        countAdded++;
       });
 
       saveToLocalStorage();
       render();
 
-      showToast(`${countAdded} equipamentos da marca ${marca} cadastrados em lote!`, 'success');
+      if (duplicates.length > 0) {
+        const previewDupes = duplicates.slice(0, 5).join(', ') + (duplicates.length > 5 ? '...' : '');
+        showToast(`${toAdd.length} equipamentos cadastrados! ${duplicates.length} repetidos foram bloqueados (${previewDupes}).`, 'warning');
+      } else {
+        showToast(`${toAdd.length} equipamentos da marca ${marca} cadastrados em lote!`, 'success');
+      }
+
       inputNumeracoesLote.value = '';
       inputNumeracoesLote.focus();
     }
@@ -639,9 +689,23 @@
     const itemIndex = inventoryItems.findIndex(i => i.id === id);
 
     if (itemIndex !== -1) {
+      const newNumeracao = editNumeracao.value.trim();
+      if (!newNumeracao) {
+        showToast('Digite a numeração do equipamento.', 'error');
+        return;
+      }
+
+      const duplicate = findDuplicate(newNumeracao, id);
+      if (duplicate) {
+        showToast(`Já existe outro equipamento cadastrado com o número "${newNumeracao}" (${duplicate.marca} - ${duplicate.categoria})!`, 'error');
+        editNumeracao.focus();
+        editNumeracao.select();
+        return;
+      }
+
       inventoryItems[itemIndex].categoria = editCategoria.value;
       inventoryItems[itemIndex].marca = editMarca.value.trim();
-      inventoryItems[itemIndex].numeracao = editNumeracao.value.trim();
+      inventoryItems[itemIndex].numeracao = newNumeracao;
       inventoryItems[itemIndex].observacao = editObservacao.value.trim();
 
       saveToLocalStorage();
@@ -993,6 +1057,7 @@
     let icon = 'fa-circle-info';
     if (type === 'success') icon = 'fa-circle-check';
     if (type === 'error') icon = 'fa-circle-exclamation';
+    if (type === 'warning') icon = 'fa-triangle-exclamation';
 
     toast.innerHTML = `
       <i class="fa-solid ${icon}"></i>

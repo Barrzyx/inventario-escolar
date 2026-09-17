@@ -52,6 +52,8 @@
   --primary-hover: #4f46e5;
   --success: #10b981;
   --success-hover: #059669;
+  --warning: #f59e0b;
+  --warning-hover: #d97706;
   --danger: #f43f5e;
   --danger-hover: #e11d48;
 
@@ -889,6 +891,7 @@ textarea {
 
 .toast-success { border-left: 4px solid var(--success); }
 .toast-error { border-left: 4px solid var(--danger); }
+.toast-warning { border-left: 4px solid var(--warning); }
 .toast-info { border-left: 4px solid var(--primary); }
 
 /* Gráficos */
