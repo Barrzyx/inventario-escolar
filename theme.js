@@ -34,6 +34,12 @@
       }
     });
 
+    // Disparar evento global para atualizar background shader, gráficos e outros listeners
+    const isDark = theme === 'dark';
+    const textColor = isDark ? '#94A3B8' : '#475569';
+    const borderColor = isDark ? '#111827' : '#FFFFFF';
+    window.dispatchEvent(new CustomEvent('themechange', { detail: { theme, isDark, textColor, borderColor } }));
+
     // Atualizar gráficos se Chart.js estiver disponível
     updateChartsTheme(theme);
   }
@@ -46,13 +52,6 @@
 
   function updateChartsTheme(theme) {
     if (typeof Chart === 'undefined') return;
-
-    const isDark = theme === 'dark';
-    const textColor = isDark ? '#94A3B8' : '#475569';
-    const borderColor = isDark ? '#111827' : '#FFFFFF';
-
-    // Disparar evento para que os scripts dos módulos atualizem os gráficos
-    window.dispatchEvent(new CustomEvent('themechange', { detail: { theme, isDark, textColor, borderColor } }));
   }
 
   // Aplicar imediatamente para evitar flash de estilo branco/escuro

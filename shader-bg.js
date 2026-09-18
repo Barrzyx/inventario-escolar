@@ -15,21 +15,39 @@
       uDensity: 1.2
     },
     light: {
-      color1: [0.631, 0.624, 0.631], // #a19fa1
-      color2: [0.968, 1.0, 0.980],   // #f7fffa
-      color3: [0.992, 0.968, 1.0],   // #fdf7ff
-      bgColor: [0.96, 0.96, 0.96],   // #f5f5f5
-      brightness: 0.7,
-      uSpeed: 0.32,                  // velocidade de animação aumentada
-      uStrength: 3.4,
-      uDensity: 1.2
+      color1: [1.0, 0.992, 0.969],   // #fffdf7
+      color2: [0.945, 0.929, 1.0],   // #f1edff
+      color3: [1.0, 1.0, 1.0],       // #ffffff
+      bgColor: [1.0, 1.0, 1.0],      // #ffffff
+      brightness: 1.2,
+      uSpeed: 0.2,                   // uSpeed=0.2
+      uStrength: 3.4,                // uStrength=3.4
+      uDensity: 1.2                  // uDensity=1.2
     }
   };
+
+  // Congelar objetos para proteger os presets contra mutações de array por referência
+  Object.freeze(PRESETS.dark);
+  Object.freeze(PRESETS.dark.color1);
+  Object.freeze(PRESETS.dark.color2);
+  Object.freeze(PRESETS.dark.color3);
+  Object.freeze(PRESETS.light);
+  Object.freeze(PRESETS.light.color1);
+  Object.freeze(PRESETS.light.color2);
+  Object.freeze(PRESETS.light.color3);
 
   let renderer, scene, camera, mesh, material;
   let currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
   let targetPreset = PRESETS[currentTheme] || PRESETS.light;
-  let currentPreset = { ...targetPreset };
+  let currentPreset = {
+    color1: [...targetPreset.color1],
+    color2: [...targetPreset.color2],
+    color3: [...targetPreset.color3],
+    brightness: targetPreset.brightness,
+    uSpeed: targetPreset.uSpeed,
+    uStrength: targetPreset.uStrength,
+    uDensity: targetPreset.uDensity
+  };
 
   const vertexShader = `
     uniform float uTime;
@@ -144,8 +162,9 @@
       vec3 col = mix(uColor1, uColor2, mixFactor1);
       col = mix(col, uColor3, mixFactor2);
 
-      // Ajuste de brilho e iluminação suave
-      col *= (uBrightness * 1.3 + vElevation * 0.15);
+      // Ajuste de brilho e iluminação suave com gradiente fluido
+      col *= (uBrightness * 0.85 + vElevation * 0.15);
+      col = clamp(col, 0.0, 1.0);
 
       gl_FragColor = vec4(col, 1.0);
     }
@@ -208,6 +227,13 @@
     window.addEventListener('resize', onWindowResize);
     window.addEventListener('themechange', onThemeChange);
 
+    // Observar diretamente o atributo data-theme na tag <html> para sincronização perfeita
+    const observer = new MutationObserver(() => {
+      const theme = document.documentElement.getAttribute('data-theme') || 'light';
+      targetPreset = PRESETS[theme] || PRESETS.light;
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
     animate();
   }
 
@@ -239,7 +265,7 @@
       material.uniforms.uTime.value = elapsedTime;
 
       // Interpolação suave dos tons de cor entre Light e Dark mode
-      const lerpSpeed = 0.05;
+      const lerpSpeed = 0.08;
       for (let i = 0; i < 3; i++) {
         currentPreset.color1[i] = lerp(currentPreset.color1[i], targetPreset.color1[i], lerpSpeed);
         currentPreset.color2[i] = lerp(currentPreset.color2[i], targetPreset.color2[i], lerpSpeed);
