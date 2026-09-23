@@ -99,6 +99,7 @@
   function saveToLocalStorage() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(inventoryItems));
+      window.dispatchEvent(new Event('inventoryupdated'));
     } catch (err) {
       console.error('Erro ao salvar no localStorage:', err);
       showToast('Erro ao salvar os dados!', 'error');
