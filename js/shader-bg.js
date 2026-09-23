@@ -1,3 +1,4 @@
+// @ts-nocheck
 // --- ShaderGradient Background Engine (Three.js WebGL waterPlane) ---
 (function () {
   'use strict';

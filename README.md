@@ -44,3 +44,28 @@ A ferramenta foi projetada para ser:
 - **Edição e Exclusão:** modal para ajuste rápido de observações ou status de qualquer item já cadastrado.
 
 ---
+
+## 📁 Estrutura do Projeto
+
+```text
+├── index.html               # Página principal do SPA (Laptops, Tablets, Professores)
+├── tablets.html             # Rota de redirecionamento /tablets
+├── professores.html         # Rota de redirecionamento /professores
+├── vercel.json              # Configuração de rotas de produção
+├── css/                     # Estilos modulares e organizados
+│   ├── styles.css           # Ponto de entrada central
+│   ├── tokens.css           # Cores (light/dark), tipografia e resets base
+│   ├── animations.css       # Keyframes, transições SPA e border beam
+│   ├── layout.css           # Barra de setores, header flutuante e responsividade
+│   ├── components.css       # Botões, cards de métricas, tabela, badges e modais
+│   └── intro.css            # Splash screen e tela de introdução
+└── js/                      # Módulos JavaScript organizados
+    ├── app.js               # Inventário de Laptops dos Alunos
+    ├── tablets.js           # Inventário de Tablets Escolares
+    ├── professores.js       # Inventário de Laptops de Professores
+    ├── sector-finder.js     # Buscador global entre setores (Ctrl+K)
+    ├── intro.js             # Apresentação e splash screen
+    ├── shader-bg.js         # Fundo 3D WebGL (Three.js)
+    ├── theme.js             # Gerenciamento de tema claro/escuro
+    └── page-transitions.js  # Transições suaves entre abas
+```

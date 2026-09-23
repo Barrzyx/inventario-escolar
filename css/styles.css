@@ -1,0 +1,10 @@
+/* ==========================================================================
+   SISTEMA DE GESTÃO E INVENTÁRIO ESCOLAR
+   Design System: shadcn/ui — Clinical Blueprint on Frosted Paper
+   ========================================================================== */
+
+@import './tokens.css';
+@import './animations.css';
+@import './layout.css';
+@import './components.css';
+@import './intro.css';

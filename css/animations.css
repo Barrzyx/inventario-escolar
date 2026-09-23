@@ -1,0 +1,90 @@
+/* ==========================================================================
+   ANIMAÇÕES & TRANSIÇÕES
+   ========================================================================== */
+
+/* --- Border Beam (Cult UI / Magic UI) --- */
+@property --beam-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes borderBeamRotate {
+  0% {
+    --beam-angle: 0deg;
+  }
+  100% {
+    --beam-angle: 360deg;
+  }
+}
+
+/* --- Transições SPA de Painéis --- */
+@keyframes slideOutLeft {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-20px); opacity: 0; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOutRight {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(20px); opacity: 0; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.slide-out-left {
+  animation: slideOutLeft 0.15s cubic-bezier(0.2, 0, 0, 1) forwards !important;
+  pointer-events: none;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.18s cubic-bezier(0, 0, 0.2, 1) forwards !important;
+}
+
+.slide-out-right {
+  animation: slideOutRight 0.15s cubic-bezier(0.2, 0, 0, 1) forwards !important;
+  pointer-events: none;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.18s cubic-bezier(0, 0, 0.2, 1) forwards !important;
+}
+
+/* --- Dropdowns & Modais --- */
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --- Destaque pulsante ao navegar/localizar item na tabela --- */
+@keyframes rowFlashPulse {
+  0% {
+    background-color: rgba(59, 130, 246, 0.32) !important;
+    outline: 2px solid #3b82f6;
+  }
+  60% {
+    background-color: rgba(59, 130, 246, 0.16) !important;
+    outline: 2px solid rgba(59, 130, 246, 0.4);
+  }
+  100% {
+    background-color: transparent !important;
+    outline: 2px solid transparent;
+  }
+}
+
+.row-highlight {
+  animation: rowFlashPulse 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
