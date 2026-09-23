@@ -402,6 +402,122 @@ textarea:focus {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15);
 }
 
+/* --- Inputs de Busca nas Tabelas (Ajuste fino de padding, ícone e alinhamento) --- */
+.search-box {
+  position: relative;
+  min-width: 220px;
+  flex: 1 1 auto;
+}
+
+.search-box i {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-mid-gray);
+  font-size: 13px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.search-box input,
+.search-box input[type="text"] {
+  width: 100%;
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 8px 14px 8px 38px !important;
+  background-color: var(--color-canvas);
+  border: 1px solid var(--border-subtle, var(--color-hairline));
+  border-radius: var(--radius-inputs);
+  font-family: var(--font-geist);
+  font-size: 13px;
+  color: var(--color-ink);
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+}
+
+.search-box input:focus,
+.search-box input[type="text"]:focus {
+  background-color: var(--color-paper);
+  border-color: var(--border-focus);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(10, 10, 10, 0.08);
+}
+
+[data-theme="dark"] .search-box input:focus,
+[data-theme="dark"] .search-box input[type="text"]:focus {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15);
+}
+
+/* --- Localizador Global entre Setores (Ctrl+K) no Header --- */
+.sector-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 260px;
+  min-width: 220px;
+  max-width: 360px;
+  height: 38px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 0 10px 0 36px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.sector-search-wrapper:focus-within {
+  border-color: var(--border-focus);
+  background: var(--bg-surface-elevated);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+  max-width: 380px;
+}
+
+.sector-search-icon {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: var(--text-muted);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.sector-search-wrapper .sector-search-input,
+input[type="text"].sector-search-input {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: unset !important;
+  padding: 0 8px 0 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  font-family: var(--font-geist);
+  font-size: 13px !important;
+  color: var(--color-ink) !important;
+  line-height: normal !important;
+  box-sizing: border-box;
+}
+
+.sector-search-wrapper .sector-search-input:focus,
+input[type="text"].sector-search-input:focus {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.sector-search-input::placeholder {
+  color: var(--text-muted);
+  font-size: 13px;
+  opacity: 0.85;
+}
+
 /* Abas de Formulário / Switch */
 .tab-buttons {
   display: grid;

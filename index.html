@@ -31,79 +31,13 @@
   <script defer src="js/professores.js"></script>
   <script defer src="js/page-transitions.js"></script>
   <script defer src="js/sector-finder.js"></script>
-  <script defer src="js/intro.js"></script>
 
-  <!-- Folhas de Estilo Modulares & Design System -->
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/intro.css">
 </head>
 <body>
-  <!-- ====================================================================
-       TELA DE INTRODUÇÃO (INTRO / SPLASH SCREEN)
-       ==================================================================== -->
-  <div id="site-intro-overlay" class="site-intro-overlay">
-    <div class="intro-backdrop-glow"></div>
-    <div class="intro-content-card">
-      <div class="intro-badge">
-        <span class="intro-pulse-dot"></span> Sistema Oficial de Patrimônio
-      </div>
-      
-      <div class="intro-emblem">
-        <div class="intro-icon-ring"></div>
-        <div class="intro-icon-box">
-          <i class="fa-solid fa-boxes-stacked"></i>
-        </div>
-      </div>
-      
-      <h1 class="intro-title">INVENTÁRIO ESCOLAR</h1>
-      <p class="intro-subtitle">Gestão Integrada de Equipamentos & Tecnologia Educacional</p>
-
-      <div class="intro-sectors-showcase">
-        <div class="intro-sector-item">
-          <div class="intro-sector-icon icon-laptops"><i class="fa-solid fa-laptop"></i></div>
-          <div class="intro-sector-info">
-            <strong>Laptops dos Alunos</strong>
-            <span>Positivo & Multilaser</span>
-          </div>
-        </div>
-        <div class="intro-sector-item">
-          <div class="intro-sector-icon icon-tablets"><i class="fa-solid fa-tablet-screen-button"></i></div>
-          <div class="intro-sector-info">
-            <strong>Tablets Escolares</strong>
-            <span>Dispositivos Móveis</span>
-          </div>
-        </div>
-        <div class="intro-sector-item">
-          <div class="intro-sector-icon icon-professores"><i class="fa-solid fa-chalkboard-user"></i></div>
-          <div class="intro-sector-info">
-            <strong>Laptops de Professor</strong>
-            <span>ThinkPad & Ultra</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="intro-progress-container">
-        <div class="intro-progress-track">
-          <div id="intro-progress-bar" class="intro-progress-fill"></div>
-        </div>
-        <div class="intro-status-text" id="intro-status-text">Inicializando sistema de inventário...</div>
-      </div>
-
-      <div class="intro-actions">
-        <button type="button" id="intro-enter-btn" class="intro-enter-btn">
-          <span>Acessar Sistema</span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
-        <button type="button" id="intro-skip-btn" class="intro-skip-btn">
-          Pular introdução
-        </button>
-      </div>
-    </div>
-  </div>
-
   <div class="app-container">
     <!-- ====================================================================
          BARRA DE NAVEGAÇÃO & LOCALIZAÇÃO DE SETORES (SECTOR BAR)
@@ -136,17 +70,13 @@
         <!-- Localizador Rápido Global entre Setores -->
         <div class="sector-search-wrapper" title="Pesquise por número, marca ou status em todos os setores">
           <i class="fa-solid fa-magnifying-glass sector-search-icon"></i>
-          <input type="text" id="sector-global-search" class="sector-search-input" placeholder="Localizar em todos os setores... (Ctrl+K)" autocomplete="off">
+          <input type="text" id="sector-global-search" class="sector-search-input" placeholder="Buscar em todos os setores..." autocomplete="off">
           <span class="sector-search-shortcut">Ctrl K</span>
           <div id="sector-search-results" class="sector-search-dropdown hidden"></div>
         </div>
 
-        <!-- Ações do Header (Intro & Tema) -->
+        <!-- Ações do Header (Tema) -->
         <div class="header-right-actions">
-          <button type="button" id="btn-replay-intro" class="header-action-btn intro-btn" title="Ver Apresentação / Intro do Sistema">
-            <i class="fa-solid fa-play"></i>
-            <span class="action-btn-text">Intro</span>
-          </button>
           <button type="button" id="theme-toggle" class="theme-toggle-btn" title="Alternar Modo Escuro / Claro" aria-label="Alternar tema">
             <i class="fa-solid fa-moon"></i>
             <span class="theme-toggle-label">Escuro</span>
@@ -464,7 +394,7 @@
             <div class="filter-controls">
               <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="tablets-search-input" placeholder="Buscar numeração, observação...">
+                <input type="text" id="tablets-search-input" placeholder="Buscar numeração ou observação...">
               </div>
               <div class="filter-box">
                 <select id="tablets-filter-category">
@@ -637,7 +567,7 @@
             <div class="filter-controls">
               <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="prof-search-input" placeholder="Buscar marca, número...">
+                <input type="text" id="prof-search-input" placeholder="Buscar marca ou numeração...">
               </div>
               <div class="filter-box">
                 <select id="prof-filter-category">
