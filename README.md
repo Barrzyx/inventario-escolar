@@ -1,71 +1,48 @@
-# 💻 Sistema de Inventário Escolar
+# Inventário Escolar
 
-Aplicação web desenvolvida para facilitar o controle, auditoria e diagnóstico de equipamentos tecnológicos em ambiente escolar (laptops de alunos, tablets e laptops de professores).
+**Projeto pessoal de portfólio · aplicação web para controle de equipamentos escolares**
 
----
+O Inventário Escolar surgiu de uma necessidade do trabalho de suporte técnico em escolas: registrar o estado de laptops e tablets, localizar equipamentos que precisam de reparo e preparar relatórios para a coordenação. A aplicação reúne o cadastro e a consulta em uma interface que funciona no navegador.
 
-## 🎯 Sobre o Projeto & Motivação
+Esta versão usa HTML, CSS e JavaScript, sem servidor ou banco de dados. **Os registros ficam salvos apenas no `localStorage` do navegador em que foram cadastrados.** Para guardar uma cópia ou levar os dados a outro computador, use o backup em JSON disponível em cada módulo.
 
-Como auxiliar técnico de TI em ambiente escolar, lidar com dezenas de computadores, laptops e tablets espalhados pelas salas e laboratórios através de anotações em papel ou planilhas manuais tornava a auditoria e o diagnóstico um processo lento e sujeito a erros.
+## O que você pode testar
 
-Desenvolvi esta aplicação para **resolver esse problema real do meu dia a dia**: criar uma ferramenta rápida, visual e prática para cadastrar equipamentos em lote, mapear quais máquinas precisam de reparo (teclado, software, lentidão ou peças quebradas) e gerar relatórios estilizados em Excel para a coordenação em segundos.
+- Cadastrar laptops de alunos, tablets e laptops de professores em painéis separados.
+- Adicionar um equipamento por vez ou cadastrar vários números em lote, como `01-20, 25`.
+- Registrar estado de conservação, marca quando aplicável e observações.
+- Buscar, filtrar por estado, editar e excluir registros.
+- Buscar equipamentos nos três painéis pela barra global (`Ctrl+K`) e alternar entre os temas claro e escuro.
+- Consultar totais e gráficos de cada tipo de equipamento.
+- Exportar os dados de cada painel para Excel (`.xlsx`) ou CSV e fazer backup ou restauração em JSON.
 
-A ferramenta foi projetada para ser:
-- **Ágil no cadastro:** permite cadastrar itens unitários ou em lote (ex: cadastrar do número 1 ao 30 de uma vez).
-- **Independente de backend:** funciona 100% no navegador, salvando tudo no `localStorage` e permitindo exportar para Excel ou fazer backup em JSON.
-- **Visual:** painéis de estatísticas e gráficos para identificar rapidamente a quantidade de máquinas quebradas, em bom estado ou com problemas de software.
-- **Responsiva:** experiência fluida em computadores, notebooks, tablets e celulares.
+## Como funciona
 
----
-
-## 🚀 Tecnologias Utilizadas
-
-- **HTML5:** Estruturação semântica das páginas e formulários.
-- **CSS3 (Vanilla):** Design escuro moderno, layout responsivo e transições/animações customizadas sem dependência de frameworks.
-- **JavaScript (ES6+):** Lógica de manipulação de dados, filtros de busca, validações e persistência no `localStorage`.
-- **[ExcelJS](https://github.com/exceljs/exceljs) & [xlsx-js-style](https://github.com/gitbrent/xlsx-js-style):** Bibliotecas para exportar relatórios em formato `.xlsx` com células estilizadas por status e fórmulas de contagem.
-- **[Chart.js](https://www.chartjs.org/):** Geração dinâmica de gráficos de proporção/status dos aparelhos.
-- **[FontAwesome](https://fontawesome.com/):** Conjunto de ícones para identificação visual rápida de status e ações.
-
----
-
-## ⚙️ Funcionalidades
-
-- **Módulos separados por tipo de dispositivo:**
-  - **Laptops dos Alunos (`index.html`):** controle detalhado de marcas e 5 categorias de conservação (Bom estado, Erro de software, Teclas faltando, Teclas ruins, Quebrado).
-  - **Tablets (`tablets.html`):** controle simplificado focado em tablets (Bom estado ou Quebrado).
-  - **Laptops de Professores (`professores.html`):** controle específico para modelos do corpo docente (ThinkPad, Ultra, etc.).
-- **Entrada em Lote:** suporte a intervalos numéricos (ex: `1..25, 30, 42..50`).
-- **Filtros e Busca Instantânea:** pesquisa por número, marca ou status em tempo real.
-- **Exportação de Dados:**
-  - Planilha Excel (.xlsx) formatada e colorida.
-  - Arquivo CSV para importação em outros sistemas.
-- **Backup e Restauração:** exportação e importação de arquivo `.json` para segurança dos dados ou troca de máquina.
-- **Edição e Exclusão:** modal para ajuste rápido de observações ou status de qualquer item já cadastrado.
-
----
-
-## 📁 Estrutura do Projeto
-
-```text
-├── index.html               # Página principal do SPA (Laptops, Tablets, Professores)
-├── tablets.html             # Rota de redirecionamento /tablets
-├── professores.html         # Rota de redirecionamento /professores
-├── vercel.json              # Configuração de rotas de produção
-├── css/                     # Estilos modulares e organizados
-│   ├── styles.css           # Ponto de entrada central
-│   ├── tokens.css           # Cores (light/dark), tipografia e resets base
-│   ├── animations.css       # Keyframes, transições SPA e border beam
-│   ├── layout.css           # Barra de setores, header flutuante e responsividade
-│   ├── components.css       # Botões, cards de métricas, tabela, badges e modais
-│   └── intro.css            # Splash screen e tela de introdução
-└── js/                      # Módulos JavaScript organizados
-    ├── app.js               # Inventário de Laptops dos Alunos
-    ├── tablets.js           # Inventário de Tablets Escolares
-    ├── professores.js       # Inventário de Laptops de Professores
-    ├── sector-finder.js     # Buscador global entre setores (Ctrl+K)
-    ├── intro.js             # Apresentação e splash screen
-    ├── shader-bg.js         # Fundo 3D WebGL (Three.js)
-    ├── theme.js             # Gerenciamento de tema claro/escuro
-    └── page-transitions.js  # Transições suaves entre abas
+```mermaid
+flowchart LR
+    U[Pessoa usuária] --> I[Interface HTML, CSS e JavaScript]
+    I --> L[localStorage do navegador]
+    I --> R[Gráficos e relatórios]
+    R --> E[Excel e CSV]
+    L --> B[Backup e restauração em JSON]
 ```
+
+O painel de alunos distingue bom estado, problemas de software, falta ou mau funcionamento de teclas e equipamentos quebrados. O de tablets usa os estados bom e quebrado. O de professores distingue bom estado, problemas de software ou lentidão e equipamentos quebrados ou que não ligam. Cada painel mantém seus próprios registros.
+
+O cadastro em lote aceita números separados por vírgula, ponto e vírgula ou quebra de linha. Intervalos numéricos usam hífen, `a` ou `até`, por exemplo `01-20` ou `1 a 20`. Cada intervalo pode abranger até 201 números, contando as duas pontas.
+
+## Executar localmente
+
+1. Extraia o projeto e abra `index.html` em um navegador atualizado.
+2. Escolha um dos três painéis na navegação superior.
+3. Cadastre alguns equipamentos e teste a busca, os filtros e as exportações.
+
+Não há instalação de dependências nem etapa de compilação. A página carrega Chart.js, ExcelJS, xlsx-js-style, Three.js, Font Awesome e fontes por CDNs; **é preciso ter conexão com a internet** para que esses recursos externos carreguem ao abrir o projeto localmente.
+
+Os arquivos `tablets.html` e `professores.html` redirecionam para os respectivos painéis em `index.html`. A configuração em `vercel.json` também oferece as rotas `/tablets` e `/professores` quando o projeto é publicado na Vercel.
+
+## Dados e limitações
+
+Os dados não são sincronizados entre navegadores ou computadores. Limpar os dados do navegador, usar uma janela privada ou trocar de dispositivo pode deixar os registros indisponíveis. Exporte um backup JSON de **cada painel** antes de limpar o navegador ou mudar de máquina; a restauração substitui os dados daquele painel.
+
+Não há autenticação nem armazenamento compartilhado. O projeto não inclui uma suíte automatizada de testes. Para uso coletivo ou armazenamento centralizado, seria necessário acrescentar uma API, um banco de dados e controle de acesso.
