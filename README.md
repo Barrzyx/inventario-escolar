@@ -1,6 +1,19 @@
-# Inventário Escolar
+<h1 align="center">Inventário Escolar</h1>
 
-**Projeto pessoal de portfólio · aplicação web para controle de equipamentos escolares**
+<p align="center">
+  <img alt="HTML5" src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&amp;logo=html5&amp;logoColor=white">
+  <img alt="CSS3" src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&amp;logo=css3&amp;logoColor=white">
+  <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&amp;logo=javascript&amp;logoColor=black">
+  <img alt="Chart.js" src="https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&amp;logo=chartdotjs&amp;logoColor=white">
+  <img alt="ExcelJS" src="https://img.shields.io/badge/ExcelJS-217346?style=for-the-badge&amp;logoColor=white">
+  <img alt="Three.js" src="https://img.shields.io/badge/Three.js-000000?style=for-the-badge&amp;logo=threedotjs&amp;logoColor=white">
+  <img alt="xlsx-js-style" src="https://img.shields.io/badge/xlsx--js--style-4B5563?style=for-the-badge&amp;logoColor=white">
+  <img alt="Font Awesome" src="https://img.shields.io/badge/Font%20Awesome-528DD7?style=for-the-badge&amp;logo=fontawesome&amp;logoColor=white">
+</p>
+
+<p align="center"><strong>Controle e diagnóstico de laptops e tablets escolares em uma única interface</strong></p>
+
+<p align="center">Projeto pessoal de <a href="https://github.com/elizeuantonioq">Elizeu Antonio</a></p>
 
 O Inventário Escolar surgiu de uma necessidade do trabalho de suporte técnico em escolas: registrar o estado de laptops e tablets, localizar equipamentos que precisam de reparo e preparar relatórios para a coordenação. A aplicação reúne o cadastro e a consulta em uma interface que funciona no navegador.
 
