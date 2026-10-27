@@ -118,7 +118,7 @@
           </div>
           <div class="finder-sectors-list">
             <div class="finder-sector-row" data-target="panel-laptops">
-              <div class="finder-sector-icon" style="color: #3b82f6;"><i class="fa-solid fa-laptop"></i></div>
+              <div class="finder-sector-icon"><i class="fa-solid fa-laptop"></i></div>
               <div class="finder-sector-details">
                 <strong>Setor de Laptops dos Alunos</strong>
                 <small>Positivo & Multilaser • ${laptops.length} equipamento(s)</small>
@@ -126,7 +126,7 @@
               <i class="fa-solid fa-arrow-right finder-arrow"></i>
             </div>
             <div class="finder-sector-row" data-target="panel-tablets">
-              <div class="finder-sector-icon" style="color: #06b6d4;"><i class="fa-solid fa-tablet-screen-button"></i></div>
+              <div class="finder-sector-icon"><i class="fa-solid fa-tablet-screen-button"></i></div>
               <div class="finder-sector-details">
                 <strong>Setor de Tablets</strong>
                 <small>Tablets Educacionais • ${tablets.length} equipamento(s)</small>
@@ -134,7 +134,7 @@
               <i class="fa-solid fa-arrow-right finder-arrow"></i>
             </div>
             <div class="finder-sector-row" data-target="panel-professores">
-              <div class="finder-sector-icon" style="color: #8b5cf6;"><i class="fa-solid fa-chalkboard-user"></i></div>
+              <div class="finder-sector-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
               <div class="finder-sector-details">
                 <strong>Setor de Laptops de Professor</strong>
                 <small>ThinkPad & Ultra • ${professores.length} equipamento(s)</small>

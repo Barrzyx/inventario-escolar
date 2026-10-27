@@ -96,6 +96,15 @@
       }
     });
 
+    // Fechar o menu "Mais" ao escolher uma ação ou clicar fora dele
+    document.addEventListener('click', function (e) {
+      document.querySelectorAll('details.menu[open]').forEach(menu => {
+        if (!menu.contains(e.target) || e.target.closest('.menu-item')) {
+          menu.removeAttribute('open');
+        }
+      });
+    });
+
     window.addEventListener('hashchange', function () {
       const hashTarget = HASH_TO_PANEL[window.location.hash];
       if (hashTarget && hashTarget !== currentPanelId && !isSwitching) {

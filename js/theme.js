@@ -13,6 +13,18 @@
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 
+  // Cores dos gráficos para o tema informado (ou o tema atual da página)
+  function getChartThemeColors(theme) {
+    const current = theme || document.documentElement.getAttribute('data-theme') || 'light';
+    const isDark = current === 'dark';
+    return {
+      textColor: isDark ? '#94A3B8' : '#475569',
+      borderColor: isDark ? '#17191E' : '#FFFFFF'
+    };
+  }
+
+  window.getChartThemeColors = getChartThemeColors;
+
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem(STORAGE_KEY, theme);
@@ -36,8 +48,7 @@
 
     // Disparar evento global para atualizar background shader, gráficos e outros listeners
     const isDark = theme === 'dark';
-    const textColor = isDark ? '#94A3B8' : '#475569';
-    const borderColor = isDark ? '#111827' : '#FFFFFF';
+    const { textColor, borderColor } = getChartThemeColors(theme);
     window.dispatchEvent(new CustomEvent('themechange', { detail: { theme, isDark, textColor, borderColor } }));
 
     // Atualizar gráficos se Chart.js estiver disponível

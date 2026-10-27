@@ -45,7 +45,7 @@ O cadastro em lote aceita números separados por vírgula, ponto e vírgula ou q
 2. Escolha um dos três painéis na navegação superior.
 3. Cadastre alguns equipamentos e teste a busca, os filtros e as exportações.
 
-Não há instalação de dependências nem etapa de compilação. A página carrega Chart.js, ExcelJS, xlsx-js-style, Three.js, Font Awesome e fontes por CDNs; **é preciso ter conexão com a internet** para que esses recursos externos carreguem ao abrir o projeto localmente.
+Não há instalação de dependências nem etapa de compilação. A página carrega Chart.js, ExcelJS, Font Awesome e fontes por CDNs; **é preciso ter conexão com a internet** para que esses recursos externos carreguem ao abrir o projeto localmente.
 
 Os arquivos `tablets.html` e `professores.html` redirecionam para os respectivos painéis em `index.html`. A configuração em `vercel.json` também oferece as rotas `/tablets` e `/professores` quando o projeto é publicado na Vercel.
 

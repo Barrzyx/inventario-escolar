@@ -421,17 +421,8 @@
       pieChart.update();
       pieChart.resize();
     } else {
-      const customCanvasBackgroundColor = {
-        id: 'customCanvasBackgroundColor',
-        beforeDraw: (chart, args, options) => {
-          const { ctx } = chart;
-          ctx.save();
-          ctx.globalCompositeOperation = 'destination-over';
-          ctx.fillStyle = options.color || '#1e293b';
-          ctx.fillRect(0, 0, chart.width, chart.height);
-          ctx.restore();
-        }
-      };
+      // Cores iniciais conforme o tema atual (o evento themechange cuida das trocas posteriores)
+      const themeColors = window.getChartThemeColors();
 
       const pieSlicePercentagesPlugin = {
         id: 'pieSlicePercentagesPlugin',
@@ -465,13 +456,13 @@
       };
 
       pieChart = new Chart(ctx, {
-        type: 'pie',
+        type: 'doughnut',
         data: {
           labels: labels,
           datasets: [{
             data: dataValues,
             backgroundColor: bgColors,
-            borderColor: '#ffffff',
+            borderColor: themeColors.borderColor,
             borderWidth: 2
           }]
         },
@@ -483,7 +474,7 @@
             legend: {
               position: 'bottom',
               labels: {
-                color: '#475569',
+                color: themeColors.textColor,
                 font: {
                   family: 'Inter',
                   size: 12
@@ -604,7 +595,7 @@
         <td><strong style="color: var(--text-muted);">${index + 1}</strong></td>
         <td><span class="brand-name">${escapeHtml(item.marca)}</span></td>
         <td><span class="item-number">${escapeHtml(item.numeracao)}</span></td>
-        <td><span class="badge ${badgeClass}">${getCategoryEmoji(item.categoria)} ${escapeHtml(item.categoria)}</span></td>
+        <td><span class="badge ${badgeClass}">${escapeHtml(item.categoria)}</span></td>
         <td><span class="item-obs">${obsDisplay}</span></td>
         <td style="text-align: center;">
           <div class="action-btns">
@@ -637,16 +628,6 @@
     }
   }
 
-  function getCategoryEmoji(categoria) {
-    switch (categoria) {
-      case 'Bom estado': return '✅';
-      case 'Problemas com erro de software': return '💻';
-      case 'Funcionando normal mas faltando teclas': return '⌨️';
-      case 'Mal funcionamento e faltando teclas': return '⚠️';
-      case 'Laptops quebrados': return '❌';
-      default: return '📦';
-    }
-  }
 
   // --- Exclusão e Edição ---
   function deleteItem(id) {
@@ -1032,6 +1013,44 @@
     }
   }
 
+  // Valida e normaliza os itens do backup, descartando registros inválidos ou repetidos
+  function sanitizeBackupItems(data) {
+    const validItems = [];
+    const seenNumbers = new Set();
+    const seenIds = new Set();
+
+    data.forEach(raw => {
+      if (!raw || typeof raw !== 'object') return;
+
+      const numeracao = String(raw.numeracao ?? '').trim();
+      const marca = String(raw.marca ?? '').trim();
+      let categoria = String(raw.categoria ?? '').trim();
+      if (categoria === 'Perfeito estado') categoria = 'Bom estado';
+      if (categoria === 'Notebooks quebrados') categoria = 'Laptops quebrados';
+
+      if (!numeracao || !marca || !CATEGORIES.includes(categoria)) return;
+
+      const numKey = numeracao.toLowerCase();
+      if (seenNumbers.has(numKey)) return;
+      seenNumbers.add(numKey);
+
+      let id = typeof raw.id === 'string' && raw.id ? raw.id : generateUniqueId();
+      if (seenIds.has(id)) id = generateUniqueId();
+      seenIds.add(id);
+
+      validItems.push({
+        id,
+        categoria,
+        marca,
+        numeracao,
+        observacao: String(raw.observacao ?? '').trim(),
+        createdAt: raw.createdAt ? String(raw.createdAt) : new Date().toLocaleDateString('pt-BR')
+      });
+    });
+
+    return validItems;
+  }
+
   // --- Importar Backup JSON ---
   function importBackupJSON(e) {
     const file = e.target.files[0];
@@ -1041,13 +1060,26 @@
     reader.onload = function (evt) {
       try {
         const importedData = JSON.parse(evt.target.result);
-        if (Array.isArray(importedData)) {
-          inventoryItems = importedData;
-          saveToLocalStorage();
-          render();
-          showToast(`${importedData.length} equipamentos restaurados do backup!`, 'success');
-        } else {
+        if (!Array.isArray(importedData)) {
           showToast('Arquivo de backup inválido.', 'error');
+          return;
+        }
+
+        const validItems = sanitizeBackupItems(importedData);
+        if (validItems.length === 0) {
+          showToast('Nenhum equipamento válido encontrado no backup.', 'error');
+          return;
+        }
+
+        inventoryItems = validItems;
+        saveToLocalStorage();
+        render();
+
+        const skipped = importedData.length - validItems.length;
+        if (skipped > 0) {
+          showToast(`${validItems.length} equipamentos restaurados! ${skipped} registro(s) inválido(s) ou repetido(s) foram ignorados.`, 'warning');
+        } else {
+          showToast(`${validItems.length} equipamentos restaurados do backup!`, 'success');
         }
       } catch (err) {
         console.error('Erro ao ler arquivo de backup:', err);
